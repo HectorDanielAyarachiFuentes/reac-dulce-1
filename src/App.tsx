@@ -19,17 +19,23 @@ function App() {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = () => {
-    if (isLiked) {
-      setLikes(likes - 1);
-    } else {
-      setLikes(likes + 1);
-    }
+    setLikes(isLiked ? likes - 1 : likes + 1);
     setIsLiked(!isLiked);
   };
 
   const handleDownloadCV = () => {
     // En una aplicación real, aquí se generaría el PDF
-    alert('Descargando CV en PDF...');
+    try {
+      const cvUrl = '/path/to/your/cv.pdf';
+      const link = document.createElement('a');
+      link.href = cvUrl;
+      link.download = 'Alejandro_Martinez_CV.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      alert('Error al descargar el CV. Por favor, inténtelo de nuevo.');
+    }
   };
 
   return (
@@ -37,11 +43,12 @@ function App() {
       {/* Cover Photo */}
       <div className="relative h-96">
         <img
-          src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=2000&q=80"
+          src="https://scontent.fnqn4-1.fna.fbcdn.net/v/t39.30808-6/431907550_7605825112842177_850476764272770064_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=gUBfVOlu7GMQ7kNvgHCzWt8&_nc_zt=23&_nc_ht=scontent.fnqn4-1.fna&_nc_gid=Aa0OB3htrJg33OCHcJvihs4&oh=00_AYCibz1wyNh9FM5W38dcXTgbBYlOlDwZtmBYycYnMdfcxw&oe=6749BB22"
           alt="Portada"
           className="w-full h-full object-cover"
         />
         
+    
         {/* Profile Picture */}
         <div className="absolute -bottom-24 left-8 md:left-1/2 md:-ml-24">
           <div className="relative">
@@ -58,7 +65,7 @@ function App() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900">Alejandro Martínez</h1>
-          <p className="text-xl text-gray-600 mt-2">Ingeniero de Software Senior</p>
+          <p className="text-xl text-gray-600 mt-2">Ingeniero de Software Senior con más de 8 años de experiencia</p>
         </div>
 
         {/* Quick Info */}
@@ -182,7 +189,7 @@ function App() {
       </div>
 
       {/* Footer with Download Button */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-white shadow-lg">
+      <footer className="bg-white shadow-lg">
         <div className="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
           <p className="text-gray-600">© 2024 Alejandro Martínez</p>
           <button
